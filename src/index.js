@@ -74,8 +74,10 @@ function showNoResultsMessage() {
   
     if (images && images.hits.length > 0) {
       renderMarkup(images.hits);
+      scrollTop(0.2);
       loadMoreBtn.style.display = 'block';
       notiflix.Notify.success(`Found ${images.totalHits} images matching your search query.`);
+      notiflix.Notify.success(`✅ Hooray! We found ${images.totalHits} images.`);
     } else {
       showNoResultsMessage();
     }
@@ -87,7 +89,9 @@ function showNoResultsMessage() {
   
     if (images && images.hits.length > 0) {
       renderMarkup(images.hits);
-      notiflix.Notify.success(`Loaded ${images.hits.length} more images.`);
+      scrollTop(2);
+      //notiflix.Notify.success(`Loaded ${images.hits.length} more images.`);
+      notiflix.Notify.success(`✅ Hooray! We found ${images.totalHits - images.hits.length} images.`);
     } else {
       loadMoreBtn.style.display = 'none';
       showEndOfResultsMessage();
@@ -96,3 +100,26 @@ function showNoResultsMessage() {
   
   form.addEventListener('submit', searchImages);
   loadMoreBtn.addEventListener('click', loadMoreImages);
+
+
+
+function scrollTop(el) {
+    const { height: cardHeight } = document
+    .querySelector(".gallery")
+    .firstElementChild.getBoundingClientRect();
+
+    window.scrollBy({
+        top: cardHeight * el,
+        behavior: "smooth",
+      });
+}
+
+function onClickBtnUp() {
+    window.scrollBy({
+      top: -99999999999,
+      behavior: 'smooth',
+    });
+    hidden(refs.btnUp);
+  }
+
+
